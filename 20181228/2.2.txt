@@ -1,0 +1,434 @@
+
+R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R は、自由なソフトウェアであり、「完全に無保証」です。 
+一定の条件に従えば、自由にこれを再配布することができます。 
+配布条件の詳細に関しては、'license()' あるいは 'licence()' と入力してください。 
+
+R は多くの貢献者による共同プロジェクトです。 
+詳しくは 'contributors()' と入力してください。 
+また、R や R のパッケージを出版物で引用する際の形式については 
+'citation()' と入力してください。 
+
+'demo()' と入力すればデモをみることができます。 
+'help()' とすればオンラインヘルプが出ます。 
+'help.start()' で HTML ブラウザによるヘルプがみられます。 
+'q()' と入力すれば R を終了します。 
+
+[R.app GUI 1.70 (7612) x86_64-apple-darwin15.6.0]
+
+> pwd
+ エラー:  オブジェクト 'pwd' がありません 
+> class(iris)
+[1] "data.frame"
+> head(iris)
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+> clear
+ エラー:  オブジェクト 'clear' がありません 
+> pwd
+ エラー:  オブジェクト 'pwd' がありません 
+> help
+function (topic, package = NULL, lib.loc = NULL, verbose = getOption("verbose"), 
+    try.all.packages = getOption("help.try.all.packages"), help_type = getOption("help_type")) 
+{
+    types <- c("text", "html", "pdf")
+    help_type <- if (!length(help_type)) 
+        "text"
+    else match.arg(tolower(help_type), types)
+    if (!missing(package)) 
+        if (is.name(y <- substitute(package))) 
+            package <- as.character(y)
+    if (missing(topic)) {
+        if (!is.null(package)) {
+            if (interactive() && help_type == "html") {
+                port <- tools::startDynamicHelp(NA)
+                if (port <= 0L) 
+                  return(library(help = package, lib.loc = lib.loc, 
+                    character.only = TRUE))
+                browser <- if (.Platform$GUI == "AQUA") {
+                  get("aqua.browser", envir = as.environment("tools:RGUI"))
+                }
+                else getOption("browser")
+                browseURL(paste0("http://127.0.0.1:", port, "/library/", 
+                  package, "/html/00Index.html"), browser)
+                return(invisible())
+            }
+            else return(library(help = package, lib.loc = lib.loc, 
+                character.only = TRUE))
+        }
+        if (!is.null(lib.loc)) 
+            return(library(lib.loc = lib.loc))
+        topic <- "help"
+        package <- "utils"
+        lib.loc <- .Library
+    }
+    ischar <- tryCatch(is.character(topic) && length(topic) == 
+        1L, error = function(e) FALSE)
+    if (!ischar) {
+        reserved <- c("TRUE", "FALSE", "NULL", "Inf", "NaN", 
+            "NA", "NA_integer_", "NA_real_", "NA_complex_", "NA_character_")
+        stopic <- deparse(substitute(topic))
+        if (!is.name(substitute(topic)) && !stopic %in% reserved) 
+            stop("'topic' should be a name, length-one character vector or reserved word")
+        topic <- stopic
+    }
+    paths <- index.search(topic, find.package(if (is.null(package)) 
+        loadedNamespaces()
+    else package, lib.loc, verbose = verbose))
+    try.all.packages <- !length(paths) && is.logical(try.all.packages) && 
+        !is.na(try.all.packages) && try.all.packages && is.null(package) && 
+        is.null(lib.loc)
+    if (try.all.packages) {
+        for (lib in .libPaths()) {
+            packages <- .packages(TRUE, lib)
+            packages <- packages[is.na(match(packages, .packages()))]
+            paths <- c(paths, index.search(topic, file.path(lib, 
+                packages)))
+        }
+        paths <- paths[nzchar(paths)]
+    }
+    structure(unique(paths), call = match.call(), topic = topic, 
+        tried_all_packages = try.all.packages, type = help_type, 
+        class = "help_files_with_topic")
+}
+<bytecode: 0x7ff7c3ed1d28>
+<environment: namespace:utils>
+> help()
+starting httpd help server ... done
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> data1 <- read.csv(""/Users/rochefort10/2018winter/20181228/dds_datasets/nyc1.csv)
+ エラー:  想定外のシンボルです  in "data1 <- read.csv(""/Users/rochefort10/2018winter"
+> data1 <- read.csv("/Users/rochefort10/2018winter/20181228/dds_datasets/nyc1.csv")
+ file(file, "rt") でエラー:  コネクションを開くことができません 
+ 追加情報:  警告メッセージ: 
+ file(file, "rt") で: 
+   ファイル '/Users/rochefort10/2018winter/20181228/dds_datasets/nyc1.csv' を開くことができません: No such file or directory 
+> data1 <- read.csv(file("/Users/rochefort10/2018winter/20181228/dds_datasets/nyc1.csv"))
+ open.connection(file, "rt") でエラー: 
+   コネクションを開くことができません 
+ 追加情報:  警告メッセージ: 
+ open.connection(file, "rt") で: 
+   ファイル '/Users/rochefort10/2018winter/20181228/dds_datasets/nyc1.csv' を開くことができません: No such file or directory 
+> data1 <- read.csv(file("/Users/rochefort10/2018winter/20181228/dds_datasets/nyt1.csv"))
+> head(data1)
+  Age Gender Impressions Clicks Signed_In
+1  36      0           3      0         1
+2  73      1           3      0         1
+3  30      0           3      0         1
+4  49      1           3      0         1
+5  47      1          11      0         1
+6  47      0          11      1         1
+ 警告メッセージ: 
+ 使われていないコネクション 3 (/Users/rochefort10/2018winter/20181228/dds_datasets/nyc1.csv) を閉じます  
+> summary(data1)
+      Age             Gender       Impressions         Clicks          Signed_In     
+ Min.   :  0.00   Min.   :0.000   Min.   : 0.000   Min.   :0.00000   Min.   :0.0000  
+ 1st Qu.:  0.00   1st Qu.:0.000   1st Qu.: 3.000   1st Qu.:0.00000   1st Qu.:0.0000  
+ Median : 31.00   Median :0.000   Median : 5.000   Median :0.00000   Median :1.0000  
+ Mean   : 29.48   Mean   :0.367   Mean   : 5.007   Mean   :0.09259   Mean   :0.7009  
+ 3rd Qu.: 48.00   3rd Qu.:1.000   3rd Qu.: 6.000   3rd Qu.:0.00000   3rd Qu.:1.0000  
+ Max.   :108.00   Max.   :1.000   Max.   :20.000   Max.   :4.00000   Max.   :1.0000  
+> 
+> 
+> 
+> 
+> data1$agecat <- cut(data1$Age,c(-Inf,0,18,24,34,44,54,64,Inf))
+> summary(data1)
+      Age             Gender       Impressions         Clicks          Signed_In           agecat      
+ Min.   :  0.00   Min.   :0.000   Min.   : 0.000   Min.   :0.00000   Min.   :0.0000   (-Inf,0]:137106  
+ 1st Qu.:  0.00   1st Qu.:0.000   1st Qu.: 3.000   1st Qu.:0.00000   1st Qu.:0.0000   (34,44] : 70860  
+ Median : 31.00   Median :0.000   Median : 5.000   Median :0.00000   Median :1.0000   (44,54] : 64288  
+ Mean   : 29.48   Mean   :0.367   Mean   : 5.007   Mean   :0.09259   Mean   :0.7009   (24,34] : 58174  
+ 3rd Qu.: 48.00   3rd Qu.:1.000   3rd Qu.: 6.000   3rd Qu.:0.00000   3rd Qu.:1.0000   (54,64] : 44738  
+ Max.   :108.00   Max.   :1.000   Max.   :20.000   Max.   :4.00000   Max.   :1.0000   (18,24] : 35270  
+                                                                                      (Other) : 48005  
+> data1$agecat <- cut(data1$Age,c(-Inf,0,15,24,34,44,54,64,Inf))
+> summary(data1)
+      Age             Gender       Impressions         Clicks          Signed_In           agecat      
+ Min.   :  0.00   Min.   :0.000   Min.   : 0.000   Min.   :0.00000   Min.   :0.0000   (-Inf,0]:137106  
+ 1st Qu.:  0.00   1st Qu.:0.000   1st Qu.: 3.000   1st Qu.:0.00000   1st Qu.:0.0000   (34,44] : 70860  
+ Median : 31.00   Median :0.000   Median : 5.000   Median :0.00000   Median :1.0000   (44,54] : 64288  
+ Mean   : 29.48   Mean   :0.367   Mean   : 5.007   Mean   :0.09259   Mean   :0.7009   (24,34] : 58174  
+ 3rd Qu.: 48.00   3rd Qu.:1.000   3rd Qu.: 6.000   3rd Qu.:0.00000   3rd Qu.:1.0000   (15,24] : 48090  
+ Max.   :108.00   Max.   :1.000   Max.   :20.000   Max.   :4.00000   Max.   :1.0000   (54,64] : 44738  
+                                                                                      (Other) : 35185  
+> data1$agecat <- cut(data1$Age,c(-Inf,0,18,24,34,44,54,64,Inf))
+> data1$agecat <- cut(data1$Age,c(-Inf,0,18,24,34,44,54,64,Inf))
+> install.packages("doBy")
+ --- このセッションで使うために、CRAN のミラーサイトを選んでください --- 
+ 依存対象 (dependency) ‘fansi’, ‘utf8’, ‘bindr’, ‘cli’, ‘crayon’, ‘pillar’, ‘purrr’, ‘assertthat’, ‘bindrcpp’, ‘glue’, ‘pkgconfig’, ‘R6’, ‘Rcpp’, ‘rlang’, ‘tibble’, ‘tidyselect’, ‘BH’, ‘plogr’, ‘dplyr’, ‘plyr’, ‘magrittr’ もインストールします 
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/fansi_0.4.0.tgz' を試しています 
+Content type 'application/x-gzip' length 207507 bytes (202 KB)
+==================================================
+downloaded 202 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/utf8_1.1.4.tgz' を試しています 
+Content type 'application/x-gzip' length 193968 bytes (189 KB)
+==================================================
+downloaded 189 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/bindr_0.1.1.tgz' を試しています 
+Content type 'application/x-gzip' length 15250 bytes (14 KB)
+==================================================
+downloaded 14 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/cli_1.0.1.tgz' を試しています 
+Content type 'application/x-gzip' length 574111 bytes (560 KB)
+==================================================
+downloaded 560 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/crayon_1.3.4.tgz' を試しています 
+Content type 'application/x-gzip' length 750568 bytes (732 KB)
+==================================================
+downloaded 732 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/pillar_1.3.1.tgz' を試しています 
+Content type 'application/x-gzip' length 153051 bytes (149 KB)
+==================================================
+downloaded 149 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/purrr_0.2.5.tgz' を試しています 
+Content type 'application/x-gzip' length 283459 bytes (276 KB)
+==================================================
+downloaded 276 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/assertthat_0.2.0.tgz' を試しています 
+Content type 'application/x-gzip' length 52476 bytes (51 KB)
+==================================================
+downloaded 51 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/bindrcpp_0.2.2.tgz' を試しています 
+Content type 'application/x-gzip' length 380736 bytes (371 KB)
+==================================================
+downloaded 371 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/glue_1.3.0.tgz' を試しています 
+Content type 'application/x-gzip' length 93553 bytes (91 KB)
+==================================================
+downloaded 91 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/pkgconfig_2.0.2.tgz' を試しています 
+Content type 'application/x-gzip' length 17455 bytes (17 KB)
+==================================================
+downloaded 17 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/R6_2.3.0.tgz' を試しています 
+Content type 'application/x-gzip' length 55479 bytes (54 KB)
+==================================================
+downloaded 54 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/Rcpp_1.0.0.tgz' を試しています 
+Content type 'application/x-gzip' length 4535632 bytes (4.3 MB)
+==================================================
+downloaded 4.3 MB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/rlang_0.3.0.1.tgz' を試しています 
+Content type 'application/x-gzip' length 1074996 bytes (1.0 MB)
+==================================================
+downloaded 1.0 MB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/tibble_1.4.2.tgz' を試しています 
+Content type 'application/x-gzip' length 230077 bytes (224 KB)
+==================================================
+downloaded 224 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/tidyselect_0.2.5.tgz' を試しています 
+Content type 'application/x-gzip' length 301743 bytes (294 KB)
+==================================================
+downloaded 294 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/BH_1.66.0-1.tgz' を試しています 
+Content type 'application/x-gzip' length 10959937 bytes (10.5 MB)
+==================================================
+downloaded 10.5 MB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/plogr_0.2.0.tgz' を試しています 
+Content type 'application/x-gzip' length 13067 bytes (12 KB)
+==================================================
+downloaded 12 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/dplyr_0.7.8.tgz' を試しています 
+Content type 'application/x-gzip' length 5720340 bytes (5.5 MB)
+==================================================
+downloaded 5.5 MB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/plyr_1.8.4.tgz' を試しています 
+Content type 'application/x-gzip' length 946407 bytes (924 KB)
+==================================================
+downloaded 924 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/magrittr_1.5.tgz' を試しています 
+Content type 'application/x-gzip' length 152395 bytes (148 KB)
+==================================================
+downloaded 148 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/doBy_4.6-2.tgz' を試しています 
+Content type 'application/x-gzip' length 3565650 bytes (3.4 MB)
+==================================================
+downloaded 3.4 MB
+
+
+ ダウンロードされたパッケージは、以下にあります 
+ 	/var/folders/t_/_j429pdd205c43z8wck10psm0000gn/T//RtmpRVI1GY/downloaded_packages 
+> library("doBy")
+> siterange <- function(x){c(length(x),min(x),mean(x),max(x))}
+> summaryBy(Age~agecat, data =data1, FUN = siterange)
+     agecat Age.FUN1 Age.FUN2 Age.FUN3 Age.FUN4
+1  (-Inf,0]   137106        0  0.00000        0
+2    (0,18]    19252        7 16.03350       18
+3   (18,24]    35270       19 21.26904       24
+4   (24,34]    58174       25 29.50335       34
+5   (34,44]    70860       35 39.49468       44
+6   (44,54]    64288       45 49.49258       54
+7   (54,64]    44738       55 59.49819       64
+8 (64, Inf]    28753       65 72.98870      108
+> summaryBy(Gender+Signed_In+Impression+Clicks~agecat, data = data1)
+ cbind(Gender, Signed_In, Impression, Clicks) でエラー: 
+   オブジェクト 'Impression' がありません 
+> summaryBy(Gender+Signed_In+Impressions+Clicks~agecat, data = data1)
+     agecat Gender.mean Signed_In.mean Impressions.mean Clicks.mean
+1  (-Inf,0]   0.0000000              0         4.999657  0.14207985
+2    (0,18]   0.6421151              1         4.998961  0.13105132
+3   (18,24]   0.5338531              1         5.006635  0.04845478
+4   (24,34]   0.5321621              1         4.993829  0.05048647
+5   (34,44]   0.5316963              1         5.021507  0.05167937
+6   (44,54]   0.5289790              1         5.010406  0.05027377
+7   (54,64]   0.5361885              1         5.022308  0.10183736
+8 (64, Inf]   0.3632664              1         5.012347  0.15128856
+> install.package("ggplot")
+ install.package("ggplot") でエラー: 
+   関数 "install.package" を見つけることができませんでした 
+> install.packages("ggplot")
+ 警告メッセージ: 
+ パッケージ ‘ggplot’ が利用できません (for R version 3.5.2)  
+> install.packages("ggplot2")
+ 依存対象 (dependency) ‘stringi’, ‘colorspace’, ‘stringr’, ‘labeling’, ‘munsell’, ‘RColorBrewer’, ‘digest’, ‘gtable’, ‘lazyeval’, ‘reshape2’, ‘scales’, ‘viridisLite’, ‘withr’ もインストールします 
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/stringi_1.2.4.tgz' を試しています 
+Content type 'application/x-gzip' length 13584342 bytes (13.0 MB)
+==================================================
+downloaded 13.0 MB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/colorspace_1.3-2.tgz' を試しています 
+Content type 'application/x-gzip' length 516228 bytes (504 KB)
+==================================================
+downloaded 504 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/stringr_1.3.1.tgz' を試しています 
+Content type 'application/x-gzip' length 186353 bytes (181 KB)
+==================================================
+downloaded 181 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/labeling_0.3.tgz' を試しています 
+Content type 'application/x-gzip' length 60579 bytes (59 KB)
+==================================================
+downloaded 59 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/munsell_0.5.0.tgz' を試しています 
+Content type 'application/x-gzip' length 240174 bytes (234 KB)
+==================================================
+downloaded 234 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/RColorBrewer_1.1-2.tgz' を試しています 
+Content type 'application/x-gzip' length 52941 bytes (51 KB)
+==================================================
+downloaded 51 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/digest_0.6.18.tgz' を試しています 
+Content type 'application/x-gzip' length 187193 bytes (182 KB)
+==================================================
+downloaded 182 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/gtable_0.2.0.tgz' を試しています 
+Content type 'application/x-gzip' length 85683 bytes (83 KB)
+==================================================
+downloaded 83 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/lazyeval_0.2.1.tgz' を試しています 
+Content type 'application/x-gzip' length 152654 bytes (149 KB)
+==================================================
+downloaded 149 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/reshape2_1.4.3.tgz' を試しています 
+Content type 'application/x-gzip' length 286207 bytes (279 KB)
+==================================================
+downloaded 279 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/scales_1.0.0.tgz' を試しています 
+Content type 'application/x-gzip' length 701217 bytes (684 KB)
+==================================================
+downloaded 684 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/viridisLite_0.3.0.tgz' を試しています 
+Content type 'application/x-gzip' length 57149 bytes (55 KB)
+==================================================
+downloaded 55 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/withr_2.1.2.tgz' を試しています 
+Content type 'application/x-gzip' length 151252 bytes (147 KB)
+==================================================
+downloaded 147 KB
+
+ URL 'https://cran.ism.ac.jp/bin/macosx/el-capitan/contrib/3.5/ggplot2_3.1.0.tgz' を試しています 
+Content type 'application/x-gzip' length 3622365 bytes (3.5 MB)
+==================================================
+downloaded 3.5 MB
+
+
+ ダウンロードされたパッケージは、以下にあります 
+ 	/var/folders/t_/_j429pdd205c43z8wck10psm0000gn/T//RtmpRVI1GY/downloaded_packages 
+> library("ggplot2")
+> library(ggplot2)
+> ggplot(data1, aes(x = Impressions, fill = agecat)) + geom_histogram(binwidth=1)
+> ggplot(data1, aes(x = agecat, y = Impressions, fill = agecat)) + geom_boxplot()
+> data1$hasimps <- cut(data1$Impressions,c(-Inf,0,Inf))
+> summaryBy(Clicks~hasimps, data = data1, FUN = siterange)
+   hasimps Clicks.FUN1 Clicks.FUN2 Clicks.FUN3 Clicks.FUN4
+1 (-Inf,0]        3066           0  0.00000000           0
+2 (0, Inf]      455375           0  0.09321768           4
+> ggplot(subset(data1, Impression>0), aes(x = Clicks/Impressions, colour=agecat)) + geom_density()
+ eval(e, x, parent.frame()) でエラー: 
+   オブジェクト 'Impression' がありません 
+> ggplot(subset(data1, Impressions>0), aes(x = Clicks/Impressions, colour=agecat)) + geom_density()
+> ggplot(subset(data1,Clicks>0),aes(x = Clicks/Impressions,colour=agecat)) + geom_density()
+> ggplot(subset(data1,Clicks>0),aes(x = agecat, y = Clicks, fill = agecat)) + geom_boxplot()
+> ggplot(subset(data1,Clicks>0),aes(x = Clicks, colour = agecat)) + geom_density()
+> data1$scode[data1$Impressions = = 0] <- "NoImps"
+ エラー:  予想外の '=' です  in "data1$scode[data1$Impressions ="
+> data1$scode[data1$Impressions == 0] <- "NoImps"
+> data1$scode[data1$Impressions > 0] <- "Imps"
+> data1$scode[data1$Clicks > 0] <- "Clicks"
+> data1$scode <- factor(data1$scode)
+> head($data1)
+ エラー:  予想外の '$' です  in "head($"
+> head(data1)
+  Age Gender Impressions Clicks Signed_In    agecat  hasimps  scode
+1  36      0           3      0         1   (34,44] (0, Inf]   Imps
+2  73      1           3      0         1 (64, Inf] (0, Inf]   Imps
+3  30      0           3      0         1   (24,34] (0, Inf]   Imps
+4  49      1           3      0         1   (44,54] (0, Inf]   Imps
+5  47      1          11      0         1   (44,54] (0, Inf]   Imps
+6  47      0          11      1         1   (44,54] (0, Inf] Clicks
+> clen = function(x){c(length(x))}
+> etable <- summaryBy(Impression~scode+Gender+agecat, data = data1, FUN=clen)
+ cbind(Impression) でエラー:  オブジェクト 'Impression' がありません 
+> etable <- summaryBy(Impressions~scode+Gender+agecat, data = data1, FUN=clen)
+> etable <- summaryBy(Impression~scode+Gender+agecat, data = data1, FUN=clen)
